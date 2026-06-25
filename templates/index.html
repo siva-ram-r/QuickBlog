@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBlog - Blog Platform</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+        <div class="container-lg">
+            <a class="navbar-brand fw-bold fs-5" href="/">
+                <span class="logo-icon">⬜</span> QuickBlog
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-success btn-sm fw-600" id="newPostBtn">
+                            <i class="fas fa-plus"></i> New Post
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn btn-admin rounded-circle" type="button" id="adminDropdown" data-bs-toggle="dropdown">
+                                A
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
+                                <li><a class="dropdown-item" href="#profile">Profile</a></li>
+                                <li><a class="dropdown-item" href="#settings">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#logout">Logout</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-section bg-light py-3">
+        <div class="container-lg">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/technology">Technology</a></li>
+                    <li class="breadcrumb-item active">Getting Started with Flask: A Beginner's Guide</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="py-5">
+        <div class="container-lg">
+            <div class="row gap-4">
+                <!-- Article Content -->
+                <div class="col-lg-8">
+                    <!-- Featured Image -->
+                    <div class="featured-image mb-4">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=400&fit=crop" alt="Flask Development" class="img-fluid rounded-3">
+                    </div>
+
+                    <!-- Article Header -->
+                    <article class="article-content">
+                        <!-- Category Badge -->
+                        <div class="mb-3">
+                            <span class="badge bg-success-light text-success fw-600">TECHNOLOGY</span>
+                        </div>
+
+                        <!-- Title -->
+                        <h1 class="article-title mb-3">Getting Started with Flask: A Beginner's Guide</h1>
+
+                        <!-- Description -->
+                        <p class="article-description text-muted mb-4">
+                            Learn the basics of Flask and build your first web application. A step-by-step guide for absolute beginners.
+                        </p>
+
+                        <!-- Meta Information -->
+                        <div class="article-meta d-flex align-items-center gap-4 mb-5 text-muted small">
+                            <div class="d-flex align-items-center gap-2">
+                                <img src="https://i.pravatar.cc/32?img=1" alt="Admin" class="rounded-circle" style="width: 32px; height: 32px;">
+                                <span class="fw-500">Admin</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="far fa-calendar"></i>
+                                <span>May 20, 2024</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="far fa-clock"></i>
+                                <span>5 min read</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="far fa-eye"></i>
+                                <span>256 views</span>
+                            </div>
+                        </div>
+
+                        <!-- Article Body -->
+                        <div class="article-body">
+                            <!-- Section 1 -->
+                            <h2 class="section-title">Introduction</h2>
+                            <p>
+                                Flask is a lightweight and flexible Python web framework that makes it easy to build web applications. It's designed to be simple yet powerful, giving developers the freedom to choose the tools and extensions they need.
+                            </p>
+                            <p>
+                                In this guide, we'll walk through the basics of <a href="#" class="text-success">Flask</a> and build a simple "Hello, World!" application.
+                            </p>
+
+                            <!-- Section 2 -->
+                            <h2 class="section-title mt-5">1. What is Flask?</h2>
+                            <p>
+                                Flask is a micro web framework written in Python. It doesn't come with built-in database abstraction layer, form validation, or any other components where pre-existing third-party libraries provide common functions.
+                            </p>
+
+                            <!-- Section 3 -->
+                            <h2 class="section-title mt-5">2. Installation</h2>
+                            <p>First, let's install Flask using pip:</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span>bash</span>
+                                    <button class="btn-copy" data-code="pip install flask">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <pre><code>pip install flask</code></pre>
+                            </div>
+
+                            <!-- Section 4 -->
+                            <h2 class="section-title mt-5">3. Your First Flask App</h2>
+                            <p>Create a file named app.py and add the following code:</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span>python</span>
+                                    <button class="btn-copy" data-code="from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return 'Hello, World!'
+
+if __name__ == '__main__':
+    app.run(debug=True)">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <pre><code>from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return 'Hello, World!'
+
+if __name__ == '__main__':
+    app.run(debug=True)</code></pre>
+                            </div>
+
+                            <p class="mt-4">Run the app:</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span>bash</span>
+                                    <button class="btn-copy" data-code="python app.py">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <pre><code>python app.py</code></pre>
+                            </div>
+
+                            <!-- Section 5 -->
+                            <h2 class="section-title mt-5">4. Conclusion</h2>
+                            <p>
+                                Congratulations! You've built your first Flask application. From here, you can explore templates, forms, databases, and more to build powerful web apps.
+                            </p>
+                        </div>
+
+                        <!-- Share Section -->
+                        <div class="share-section mt-5 pt-4 border-top">
+                            <p class="mb-3">Share this post</p>
+                            <div class="share-buttons d-flex gap-3">
+                                <a href="#" class="share-btn twitter" title="Share on Twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="share-btn facebook" title="Share on Facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="share-btn linkedin" title="Share on LinkedIn">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="share-btn copy" title="Copy link">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Post Navigation -->
+                        <div class="post-navigation mt-5 pt-4">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <a href="#" class="post-nav-item prev-post">
+                                        <i class="fas fa-chevron-left"></i> Previous Post
+                                        <p>Understanding JavaScript Closures</p>
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="#" class="post-nav-item next-post text-end">
+                                        Next Post <i class="fas fa-chevron-right"></i>
+                                        <p>UI/UX Design Principles for Better Apps</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="col-lg-4">
+                    <!-- About Author -->
+                    <div class="sidebar-card mb-4">
+                        <h3 class="sidebar-title mb-4">About the Author</h3>
+                        <div class="author-info text-center">
+                            <img src="https://i.pravatar.cc/120?img=1" alt="Admin" class="rounded-circle mb-3" style="width: 80px; height: 80px;">
+                            <h4 class="fw-bold">Admin</h4>
+                            <p class="text-muted small mb-3">Blogger & Developer</p>
+                            <p class="text-muted small mb-4">
+                                Passionate about web development and writing practical guides that help developers learn and grow.
+                            </p>
+                            <div class="social-links d-flex justify-content-center gap-3">
+                                <a href="#" class="social-link" title="Website">
+                                    <i class="fas fa-globe"></i>
+                                </a>
+                                <a href="#" class="social-link" title="Twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-link" title="GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table of Contents -->
+                    <div class="sidebar-card mb-4">
+                        <h3 class="sidebar-title mb-3">Table of Contents</h3>
+                        <ul class="toc-list">
+                            <li><a href="#what-is-flask">1. What is Flask?</a></li>
+                            <li><a href="#installation">2. Installation</a></li>
+                            <li><a href="#first-app">3. Your First Flask App</a></li>
+                            <li><a href="#conclusion">4. Conclusion</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="sidebar-card mb-4">
+                        <h3 class="sidebar-title mb-3">Categories</h3>
+                        <div class="categories-list">
+                            <div class="category-item">
+                                <a href="/technology">Technology</a>
+                                <span class="badge bg-light text-dark">8</span>
+                            </div>
+                            <div class="category-item">
+                                <a href="/programming">Programming</a>
+                                <span class="badge bg-light text-dark">7</span>
+                            </div>
+                            <div class="category-item">
+                                <a href="/design">Design</a>
+                                <span class="badge bg-light text-dark">4</span>
+                            </div>
+                            <div class="category-item">
+                                <a href="/lifestyle">Lifestyle</a>
+                                <span class="badge bg-light text-dark">5</span>
+                            </div>
+                            <div class="category-item">
+                                <a href="/travel">Travel</a>
+                                <span class="badge bg-light text-dark">2</span>
+                            </div>
+                            <div class="category-item">
+                                <a href="/business">Business</a>
+                                <span class="badge bg-light text-dark">2</span>
+                            </div>
+                        </div>
+                        <a href="/categories" class="view-all-categories">View all categories <i class="fas fa-arrow-right"></i></a>
+                    </div>
+
+                    <!-- Popular Posts -->
+                    <div class="sidebar-card mb-4">
+                        <h3 class="sidebar-title mb-3">Popular Posts</h3>
+                        <div class="popular-posts">
+                            <a href="#" class="popular-post-item">
+                                <img src="https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=100&h=100&fit=crop" alt="Flask" class="post-thumbnail">
+                                <div class="post-info">
+                                    <h5>Getting Started with Flask: A Beginner's Guide</h5>
+                                    <small>May 20, 2024</small>
+                                </div>
+                            </a>
+                            <a href="#" class="popular-post-item">
+                                <img src="https://images.unsplash.com/photo-1627398242454-45a570e2f1f1?w=100&h=100&fit=crop" alt="JavaScript" class="post-thumbnail">
+                                <div class="post-info">
+                                    <h5>Understanding JavaScript Closures</h5>
+                                    <small>May 16, 2024</small>
+                                </div>
+                            </a>
+                            <a href="#" class="popular-post-item">
+                                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=100&h=100&fit=crop" alt="Design" class="post-thumbnail">
+                                <div class="post-info">
+                                    <h5>UI/UX Design Principles for Better Apps</h5>
+                                    <small>May 15, 2024</small>
+                                </div>
+                            </a>
+                            <a href="#" class="popular-post-item">
+                                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=100&h=100&fit=crop" alt="Travel" class="post-thumbnail">
+                                <div class="post-info">
+                                    <h5>Exploring the Swiss Alps: A Travel Diary</h5>
+                                    <small>May 10, 2024</small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="sidebar-card newsletter-card">
+                        <h3 class="sidebar-title mb-3">Newsletter</h3>
+                        <p class="text-muted small mb-3">Subscribe to get the latest posts delivered to your inbox.</p>
+                        <form class="newsletter-form">
+                            <input type="email" class="form-control form-control-sm mb-2" placeholder="Enter your email" required>
+                            <button type="submit" class="btn btn-success w-100">Subscribe</button>
+                        </form>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5 mt-5">
+        <div class="container-lg">
+            <div class="row mb-5">
+                <!-- Brand -->
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="mb-3">
+                        <span class="logo-icon-white">⬜</span> QuickBlog
+                    </h5>
+                    <p class="text-muted small">Write. Publish. Inspire.</p>
+                </div>
+
+                <!-- Links -->
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h6 class="mb-3">Links</h6>
+                    <ul class="list-unstyled text-muted small">
+                        <li class="mb-2"><a href="/" class="text-reset text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="#about" class="text-reset text-decoration-none">About</a></li>
+                        <li><a href="#contact" class="text-reset text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h6 class="mb-3">Resources</h6>
+                    <ul class="list-unstyled text-muted small">
+                        <li class="mb-2"><a href="#" class="text-reset text-decoration-none">All Posts</a></li>
+                        <li class="mb-2"><a href="#" class="text-reset text-decoration-none">Categories</a></li>
+                        <li><a href="#" class="text-reset text-decoration-none">Tags</a></li>
+                    </ul>
+                </div>
+
+                <!-- Follow Us -->
+                <div class="col-md-3">
+                    <h6 class="mb-3">Follow Us</h6>
+                    <div class="social-links d-flex gap-3">
+                        <a href="#" class="text-muted text-decoration-none" title="Twitter">
+                            <i class="fab fa-twitter fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-muted text-decoration-none" title="GitHub">
+                            <i class="fab fa-github fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-muted text-decoration-none" title="LinkedIn">
+                            <i class="fab fa-linkedin fa-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <hr class="bg-secondary mb-4">
+            <div class="text-center text-muted small">
+                <p>&copy; 2024 QuickBlog. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

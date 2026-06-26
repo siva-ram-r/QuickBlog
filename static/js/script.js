@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 // ===================================
 // QuickBlog - JavaScript Functionality
 // ===================================
@@ -490,3 +491,17 @@ function trackEvent(category, action, label) {
 trackEvent('engagement', 'page_view', 'Article');
 
 console.log('QuickBlog - JavaScript initialized successfully');
+=======
+document.addEventListener('DOMContentLoaded', function () {
+  var textarea = document.querySelector('textarea');
+  var count = document.getElementById('messageCount');
+
+  if (textarea && count) {
+    count.textContent = textarea.value.length;
+
+    textarea.addEventListener('input', function () {
+      count.textContent = textarea.value.length;
+    });
+  }
+});
+>>>>>>> Stashed changes

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 from flask import Flask, render_template, request, jsonify
 import os
 
@@ -170,3 +171,15 @@ if __name__ == '__main__':
     
     # Run the Flask app
     app.run(debug=True, host='0.0.0.0', port=5000)
+=======
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+>>>>>>> Stashed changes

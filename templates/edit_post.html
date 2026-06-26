@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post - QuickBlog</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- TinyMCE Rich Editor -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/css/edit_post.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header py-3 shadow-sm border-bottom">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg p-0 align-items-center">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('index') }}">
+                    <span class="brand-mark">Q</span>
+                    <span class="fw-bold">QuickBlog</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-2">
+                        <a class="btn btn-success btn-sm px-4" href="{{ url_for('create_post') }}"><i class="fas fa-plus"></i> New Post</a>
+                        <button class="btn btn-secondary btn-sm rounded-circle" type="button">A</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-nav py-3 border-bottom">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Posts</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Post</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Main Form Area -->
+                <div class="col-lg-8">
+                    <!-- Edit Post Header -->
+                    <div class="edit-post-header d-flex justify-content-between align-items-start mb-4">
+                        <div>
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <i class="fas fa-edit text-success fs-5"></i>
+                                <h1 class="page-title mb-0">Edit Post</h1>
+                            </div>
+                            <p class="text-muted">Update your post details and publish the changes.</p>
+                        </div>
+                        <a href="#" class="btn btn-link btn-sm text-primary">View Post <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+
+                    <!-- Form Card -->
+                    <div class="form-card">
+                        <form id="editPostForm">
+                            <!-- Title Field -->
+                            <div class="mb-4">
+                                <label class="form-label fw-600 mb-2" for="postTitle">Title <span class="text-danger">*</span></label>
+                                <input type="text" id="postTitle" class="form-control form-control-lg" 
+                                       placeholder="Enter post title" 
+                                       value="{{ post.title }}"
+                                       maxlength="100" required>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <small class="text-muted char-counter">{{ post.title|length }} / 100</small>
+                                </div>
+                            </div>
+
+                            <!-- Category Row -->
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-600 mb-2" for="postCategory">Category <span class="text-danger">*</span></label>
+                                    <select id="postCategory" class="form-select form-select-lg" required>
+                                        {% for name in categories.keys() %}
+                                        <option value="{{ name }}" {% if name == post.category %}selected{% endif %}>{{ name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- Placeholder for spacing -->
+                                </div>
+                            </div>
+
+                            <!-- Featured Image -->
+                            <div class="mb-4">
+                                <label class="form-label fw-600 mb-3">Featured Image</label>
+                                <div class="featured-image-container">
+                                    <img id="featuredImagePreview" 
+                                         src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=400&fit=crop" 
+                                         alt="Featured Image" 
+                                         class="featured-image-preview">
+                                    <div class{{ post.featured_image }}
+                                        <button type="button" class="btn btn-sm btn-light" id="changeImageBtn">
+                                            <i class="fas fa-image"></i> Change Image
+                                        </button>
+                                    </div>
+                                    <input type="file" id="featuredImageInput" accept="image/*" class="d-none">
+                                </div>
+                                <small class="text-muted d-block mt-2">Recommended size: 1200 x 630px (JPG, PNG, WebP)</small>
+                            </div>
+
+                            <!-- Excerpt -->
+                            <div class="mb-4">
+                                <label class="form-label fw-600 mb-2" for="postExcerpt">Excerpt</label>
+                                <textarea id="postExcerpt" class="form-control" rows="3" 
+                                         placeholder="Write a short summary of your post (This will appear in the post listing)..."
+                                         maxlength="200">Learn the basics of Flask and build your first web application.</textarea>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <small class="text-muted char-counter">67 / 200</small>
+                                </div>{{ post.description }}</textarea>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <small class="text-muted char-counter">{{ post.description|length }}
+                            <!-- Content Editor -->
+                            <div class="mb-4">
+                                <label class="form-label fw-600 mb-3" for="postContent">Content <span class="text-danger">*</span></label>
+                                
+                                <!-- Editor Toolbar -->
+                                <div class="editor-toolbar mb-2">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Bold"><i class="fas fa-bold"></i></button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Italic"><i class="fas fa-italic"></i></button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Underline"><i class="fas fa-underline"></i></button>
+                                    </div>
+                                    <div class="btn-group ms-2" role="group">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                                    </div>
+                                    <div class="btn-group ms-2" role="group">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Link"><i class="fas fa-link"></i></button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Code"><i class="fas fa-code"></i></button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Quote"><i class="fas fa-quote-left"></i></button>
+                                    </div>
+                                </div>
+
+                                <!-- Editor -->
+                                <textarea id="postContent" class="form-control editor-content" rows="12" required>{{ post.content }}</textarea>
+                            </div>
+
+                            <!-- Tags -->
+                            <div class="mb-4">
+                                <label class="form-label fw-600 mb-3" for="tagInput">Tags</label>
+                                <div class="tags-input-wrapper">
+                                    <div id="tagsList" class="tags-list">
+                                        <span class="tag-item">Flask <button type="button" class="btn-remove-tag">×</button></span>
+                                        <span class="tag-item">Python <button type="button" class="btn-remove-tag">×</button></span>
+                                        <span class="tag-item">Web Development <button type="button" class="btn-remove-tag">×</button></span>
+                                        <span class="tag-item">Beginner <button type="button" class="btn-remove-tag">×</button></span>
+                                    </div>
+                                    <input type="text" id="tagInput" class="form-control tags-input" placeholder="Type a tag and press Enter...">
+                                </div>
+                                <small class="text-muted d-block mt-2">Add relevant tags to help readers find your post.</small>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex justify-content-between gap-3 pt-4 border-top">
+                                <button type="button" class="btn btn-outline-secondary btn-lg">Cancel</button>
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-light btn-lg">Save as Draft</button>
+                                    <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-check"></i> Update Post</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="col-lg-4">
+                    <!-- Publish Status Card -->
+                    <div class="sidebar-card mb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <i class="fas fa-paper-plane text-success fs-5"></i>
+                            <h3 class="sidebar-title mb-0">Publish</h3>
+                        </div>
+                        
+                        <div class="publish-section">
+                            <div class="mb-3">
+                                <label class="form-label fw-600 mb-2">Status</label>
+                                <select class="form-select form-select-sm">
+                                    <option selected>Published</option>
+                                    <option value="draft">Draft</option>
+                                    <option value="scheduled">Scheduled</option>
+                                    <option value="archived">Archived</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-600 mb-2">Published on</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="date" class="form-control" value="{{ post.published_date }}">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-600 mb-2">Time</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="time" class="form-control" value="{{ post.published_time }}">
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-outline-danger btn-sm w-100 mt-3">
+                                <i class="fas fa-trash"></i> Move to Trash
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Categories Card -->
+                    <div class="sidebar-card mb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <i class="fas fa-folder text-success fs-5"></i>
+                            <h3 class="sidebar-title mb-0">Categories</h3>
+                        </div>
+                        
+                        <div class="categories-section">
+                            <div class="category-check-item">
+                                <input type="checkbox" id="cat-technology" class="form-check-input" checked>
+                                <label for="cat-technology" class="form-check-label">Technology</label>
+                                <span class="category-count">8</span>
+                            </div>
+                            <div class="category-check-item">
+                                <input type="checkbox" id="cat-programming" class="form-check-input">
+                                <label for="cat-programming" class="form-check-label">Programming</label>
+                                <span class="category-count">7</span>
+                            </div>
+                            <div class="category-check-item">
+                                <input type="checkbox" id="cat-design" class="form-check-input">
+                                <label for="cat-design" class="form-check-label">Design</label>
+                                <span class="category-count">4</span>
+                            </div>
+                            <div class="category-check-item">
+                                <input type="checkbox" id="cat-lifestyle" class="form-check-input">
+                                <label for="cat-lifestyle" class="form-check-label">Lifestyle</label>
+                                <span class="category-count">5</span>
+                            </div>
+                            <div class="category-check-item">
+                                <input type="checkbox" id="cat-travel" class="form-check-input">
+                                <label for="cat-travel" class="form-check-label">Travel</label>
+                                <span class="category-count">2</span>
+                            </div>
+                            <div class="category-check-item">
+                                <input type="checkbox" id="cat-business" class="form-check-input">
+                                <label for="cat-business" class="form-check-label">Business</label>
+                                <span class="category-count">2</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-link btn-sm text-success mt-3">Manage categories →</a>
+                    </div>{% for name, count in categories.items() %}
+                            <div class="category-check-item">
+                                <input type="checkbox" id="cat-{{ loop.index }}" class="form-check-input" {% if name == post.category %}checked{% endif %}>
+                                <label for="cat-{{ loop.index }}" class="form-check-label">{{ name }}</label>
+                                <span class="category-count">{{ count }}</span>
+                            </div>
+                            {% endfor %}
+                            <div class="tip-item">
+                                <div class="tip-icon">
+                                    <i class="fas fa-heading"></i>
+                                </div>
+                                <div>
+                                    <h6 class="tip-title">Use headings</h6>
+                                    <p class="tip-text">Break your content into sections for better readability.</p>
+                                </div>
+                            </div>
+
+                            <div class="tip-item">
+                                <div class="tip-icon">
+                                    <i class="fas fa-feather-alt"></i>
+                                </div>
+                                <div>
+                                    <h6 class="tip-title">Keep it simple</h6>
+                                    <p class="tip-text">Write clearly and concisely for your readers.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <!-- Custom JS -->
+    <script src="../static/js/edit_post.js"></script>
+</body>
+</html>

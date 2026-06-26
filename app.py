@@ -13,6 +13,8 @@ blog_posts = [
         'category': 'Technology',
         'author': 'Admin',
         'date': 'May 20, 2024',
+        'published_date': '2024-05-20',
+        'published_time': '10:30',
         'read_time': '5 min read',
         'views': 256,
         'description': 'Learn the basics of Flask and build your first web application. A step-by-step guide for absolute beginners.',
@@ -25,6 +27,8 @@ blog_posts = [
         'category': 'Programming',
         'author': 'Admin',
         'date': 'May 16, 2024',
+        'published_date': '2024-05-16',
+        'published_time': '14:15',
         'read_time': '7 min read',
         'views': 412,
         'description': 'Deep dive into JavaScript closures and how to use them effectively in your code.',
@@ -36,6 +40,8 @@ blog_posts = [
         'category': 'Design',
         'author': 'Admin',
         'date': 'May 15, 2024',
+        'published_date': '2024-05-15',
+        'published_time': '09:45',
         'read_time': '6 min read',
         'views': 398,
         'description': 'Essential design principles that every developer should know.',
@@ -70,6 +76,14 @@ def index():
 def create_post():
     """Render the create new post page"""
     return render_template('create_post.html', categories=categories)
+
+@app.route('/post/<int:post_id>/edit')
+def edit_post(post_id):
+    """Render the edit post page"""
+    post = next((p for p in blog_posts if p['id'] == post_id), None)
+    if post:
+        return render_template('edit_post.html', post=post, categories=categories)
+    return "Post not found", 404
 
 @app.route('/post/<int:post_id>')
 def view_post(post_id):

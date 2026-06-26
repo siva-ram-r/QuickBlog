@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBlog - Home</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="../static/css/about_page.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+        <div class="container-lg">
+            <a class="navbar-brand fw-bold fs-5" href="{{ url_for('index') }}">
+                <span class="logo-icon">⬜</span> QuickBlog
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark active" aria-current="page" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-success btn-sm fw-600" href="{{ url_for('create_post') }}">
+                            <i class="fas fa-plus"></i> New Post
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn btn-admin rounded-circle" type="button" id="adminDropdown" data-bs-toggle="dropdown">
+                                A
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
+                                <li><a class="dropdown-item" href="#profile">Profile</a></li>
+                                <li><a class="dropdown-item" href="#settings">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#logout">Logout</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section py-5" id="about">
+            <div class="container-lg">
+                <div class="row align-items-center gy-5">
+                    <div class="col-lg-6">
+                        <div class="eyebrow-badge mb-3">ABOUT QUICKBLOG</div>
+                        <h1 class="display-6 fw-bold mb-4">Our Story</h1>
+                        <p class="lead text-muted mb-4">QuickBlog was created with a simple mission: to provide a fast, clean, and distraction-free platform for writers and creators to share their ideas with the world.</p>
+                        <p class="text-muted mb-4">Whether you're a developer, designer, traveler, or a curious learner, QuickBlog is your space to publish, inspire, and connect.</p>
+                        <a href="{{ url_for('create_post') }}" class="btn btn-success btn-lg fw-600"><i class="fas fa-pen-nib me-2"></i>Start Writing</a>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="hero-card p-4 rounded-4 shadow-sm">
+                            <div class="hero-card-top mb-4">
+                                <div class="hero-card-dot bg-success"></div>
+                                <div class="hero-card-dot bg-secondary"></div>
+                                <div class="hero-card-dot bg-secondary"></div>
+                            </div>
+                            <div class="hero-illustration p-4 rounded-4 bg-white shadow-sm">
+                                <div class="laptop-screen mb-4">
+                                    <div class="screen-header d-flex gap-2 mb-3">
+                                        <span class="dot dot-red"></span>
+                                        <span class="dot dot-yellow"></span>
+                                        <span class="dot dot-green"></span>
+                                    </div>
+                                    <div class="screen-content rounded-3 p-4 bg-light">
+                                        <div class="placeholder-img mb-4"></div>
+                                        <div class="placeholder-line short"></div>
+                                        <div class="placeholder-line"></div>
+                                        <div class="placeholder-line"></div>
+                                    </div>
+                                </div>
+                                <div class="desk-items d-flex align-items-center gap-3">
+                                    <div class="plant"></div>
+                                    <div class="book-stack"></div>
+                                    <div class="mug"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section py-5">
+            <div class="container-lg">
+                <div class="text-center mb-5">
+                    <p class="text-success fw-semibold mb-2">What Makes QuickBlog Special?</p>
+                    <h2 class="fw-bold">We focus on simplicity, performance, and a great writing experience.</h2>
+                    <p class="text-muted mx-auto mt-3" style="max-width: 700px;">Everything you need to share your ideas, without the clutter.</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-xl-3">
+                        <div class="feature-card p-4 rounded-4 h-100">
+                            <div class="feature-icon bg-success-light text-success mb-3"><i class="fas fa-feather-alt"></i></div>
+                            <h5 class="fw-bold mb-2">Simple & Clean</h5>
+                            <p class="text-muted mb-0">A minimal and intuitive interface that helps you focus on writing and publishing.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="feature-card p-4 rounded-4 h-100">
+                            <div class="feature-icon bg-success-light text-success mb-3"><i class="fas fa-bolt"></i></div>
+                            <h5 class="fw-bold mb-2">Fast & Responsive</h5>
+                            <p class="text-muted mb-0">Built with modern technologies to deliver a fast and seamless experience.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="feature-card p-4 rounded-4 h-100">
+                            <div class="feature-icon bg-success-light text-success mb-3"><i class="fas fa-shield-alt"></i></div>
+                            <h5 class="fw-bold mb-2">Secure & Reliable</h5>
+                            <p class="text-muted mb-0">Your content is safely stored with reliability you can trust.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="feature-card p-4 rounded-4 h-100">
+                            <div class="feature-icon bg-success-light text-success mb-3"><i class="fas fa-users"></i></div>
+                            <h5 class="fw-bold mb-2">Built for Everyone</h5>
+                            <p class="text-muted mb-0">For writers, developers, students, and anyone with something to say.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tech-section py-5 bg-light">
+            <div class="container-lg text-center">
+                <p class="text-muted small mb-2">Our Technology Stack</p>
+                <h2 class="fw-bold mb-4">QuickBlog is built using modern and powerful technologies.</h2>
+                <div class="row justify-content-center g-3">
+                    <div class="col-6 col-sm-4 col-md-2">
+                        <div class="tech-chip py-3 rounded-4 shadow-sm">
+                            <i class="fab fa-python fa-2x text-success mb-2"></i>
+                            <div>Python</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2">
+                        <div class="tech-chip py-3 rounded-4 shadow-sm">
+                            <i class="fas fa-flask fa-2x text-success mb-2"></i>
+                            <div>Flask</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2">
+                        <div class="tech-chip py-3 rounded-4 shadow-sm">
+                            <i class="fas fa-database fa-2x text-success mb-2"></i>
+                            <div>MongoDB</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2">
+                        <div class="tech-chip py-3 rounded-4 shadow-sm">
+                            <i class="fab fa-bootstrap fa-2x text-success mb-2"></i>
+                            <div>Bootstrap</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2">
+                        <div class="tech-chip py-3 rounded-4 shadow-sm">
+                            <i class="fab fa-html5 fa-2x text-success mb-2"></i>
+                            <div>HTML5</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2">
+                        <div class="tech-chip py-3 rounded-4 shadow-sm">
+                            <i class="fab fa-css3-alt fa-2x text-success mb-2"></i>
+                            <div>CSS3</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2">
+                        <div class="tech-chip py-3 rounded-4 shadow-sm">
+                            <i class="fab fa-js fa-2x text-success mb-2"></i>
+                            <div>JavaScript</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section py-5">
+            <div class="container-lg text-center">
+                <p class="text-muted small mb-2">Meet the Team</p>
+                <h2 class="fw-bold mb-4">A passionate group of learners building and creating together.</h2>
+                <div class="row g-4 justify-content-center">
+                    <div class="col-sm-6 col-lg-2">
+                        <div class="team-card p-4 rounded-4 text-center">
+                            <img src="https://i.pravatar.cc/120?img=32" alt="Alex Johnson" class="team-avatar mb-3">
+                            <h6 class="fw-bold mb-1">Alex Johnson</h6>
+                            <p class="text-muted small mb-2">Frontend Developer</p>
+                            <a href="#" class="text-success"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-2">
+                        <div class="team-card p-4 rounded-4 text-center">
+                            <img src="https://i.pravatar.cc/120?img=47" alt="Priya Sharma" class="team-avatar mb-3">
+                            <h6 class="fw-bold mb-1">Priya Sharma</h6>
+                            <p class="text-muted small mb-2">UI/UX Designer</p>
+                            <a href="#" class="text-success"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-2">
+                        <div class="team-card p-4 rounded-4 text-center">
+                            <img src="https://i.pravatar.cc/120?img=12" alt="Rohan Verma" class="team-avatar mb-3">
+                            <h6 class="fw-bold mb-1">Rohan Verma</h6>
+                            <p class="text-muted small mb-2">Backend Developer</p>
+                            <a href="#" class="text-success"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-2">
+                        <div class="team-card p-4 rounded-4 text-center">
+                            <img src="https://i.pravatar.cc/120?img=56" alt="Sneha Patel" class="team-avatar mb-3">
+                            <h6 class="fw-bold mb-1">Sneha Patel</h6>
+                            <p class="text-muted small mb-2">Database Engineer</p>
+                            <a href="#" class="text-success"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-2">
+                        <div class="team-card p-4 rounded-4 text-center">
+                            <img src="https://i.pravatar.cc/120?img=15" alt="Neha Singh" class="team-avatar mb-3">
+                            <h6 class="fw-bold mb-1">Neha Singh</h6>
+                            <p class="text-muted small mb-2">Tester & QA</p>
+                            <a href="#" class="text-success"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section py-5 bg-white">
+            <div class="container-lg">
+                <div class="cta-banner rounded-4 p-4 d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3">
+                    <div>
+                        <h3 class="fw-bold mb-2">Ready to share your ideas?</h3>
+                        <p class="text-muted mb-0">Join our community of writers and start publishing your stories today.</p>
+                    </div>
+                    <a href="{{ url_for('create_post') }}" class="btn btn-success btn-lg fw-600">Create Your First Post <i class="fas fa-arrow-right ms-2"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white py-5 mt-5">
+        <div class="container-lg">
+            <div class="row mb-5">
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="mb-3"><span class="logo-icon-white">⬜</span> QuickBlog</h5>
+                    <p class="text-muted small">Write. Publish. Inspire.</p>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h6 class="mb-3">Links</h6>
+                    <ul class="list-unstyled text-muted small">
+                        <li class="mb-2"><a href="{{ url_for('index') }}" class="text-reset text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="#about" class="text-reset text-decoration-none">About</a></li>
+                        <li><a href="#contact" class="text-reset text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h6 class="mb-3">Resources</h6>
+                    <ul class="list-unstyled text-muted small">
+                        <li class="mb-2"><a href="#" class="text-reset text-decoration-none">All Posts</a></li>
+                        <li class="mb-2"><a href="#" class="text-reset text-decoration-none">Categories</a></li>
+                        <li><a href="#" class="text-reset text-decoration-none">Tags</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6 class="mb-3">Follow Us</h6>
+                    <div class="social-links d-flex gap-3">
+                        <a href="#" class="text-muted text-decoration-none" title="Twitter"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-muted text-decoration-none" title="GitHub"><i class="fab fa-github fa-lg"></i></a>
+                        <a href="#" class="text-muted text-decoration-none" title="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="bg-secondary mb-4">
+            <div class="text-center text-muted small">
+                <p>&copy; 2024 QuickBlog. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

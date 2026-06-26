@@ -1,0 +1,187 @@
+/* Create Post Page Styles */
+
+.page-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.06);
+}
+
+.page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.field-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #111827;
+}
+
+.form-help {
+    font-size: 0.85rem;
+}
+
+.image-dropzone {
+    position: relative;
+    min-height: 180px;
+    border: 2px dashed #d1d5db;
+    border-radius: 1rem;
+    background-color: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.image-dropzone:hover {
+    border-color: #10b981;
+    background-color: #f0fdf4;
+}
+
+.image-dropzone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.dropzone-content {
+    text-align: center;
+}
+
+.image-preview {
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    overflow: hidden;
+    padding: 1rem;
+    background-color: #ffffff;
+}
+
+.image-preview img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+}
+
+.remove-image-btn {
+    font-size: 0.9rem;
+}
+
+.editor-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.content-editor {
+    min-height: 240px;
+    resize: vertical;
+    font-family: 'Inter', sans-serif;
+}
+
+.tags-input-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    background-color: #f8fafc;
+}
+
+.tags-input-wrapper input {
+    border: none;
+    box-shadow: none;
+    flex: 1;
+    min-width: 160px;
+    background: transparent;
+}
+
+.tags-input-wrapper input:focus {
+    outline: none;
+}
+
+.tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.7rem;
+    border-radius: 999px;
+    background-color: #ecfdf5;
+    color: #166534;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.tag-pill .remove-tag {
+    background: none;
+    border: none;
+    color: #166534;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.tip-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.tip-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.save-draft-card {
+    background: linear-gradient(135deg, rgba(22, 163, 74, 0.05), rgba(124, 58, 237, 0.05));
+}
+
+.save-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+@media (max-width: 992px) {
+    .page-card {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 1.75rem;
+    }
+
+    .image-dropzone {
+        min-height: 150px;
+    }
+}

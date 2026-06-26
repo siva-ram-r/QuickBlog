@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Post - QuickBlog</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script> 
+    <link rel="stylesheet" href="../static/css/create_post.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+        <div class="container-lg">
+            <a class="navbar-brand fw-bold fs-5" href="{{ url_for('index') }}">
+                <span class="logo-icon">⬜</span> QuickBlog
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-success btn-sm fw-600" href="{{ url_for('create_post') }}">
+                            <i class="fas fa-plus"></i> New Post
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn btn-admin rounded-circle" type="button" id="adminDropdown" data-bs-toggle="dropdown">
+                                A
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
+                                <li><a class="dropdown-item" href="#profile">Profile</a></li>
+                                <li><a class="dropdown-item" href="#settings">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#logout">Logout</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="breadcrumb-section bg-light py-3">
+        <div class="container-lg">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('create_post') }}">Posts</a></li>
+                    <li class="breadcrumb-item active">Create New Post</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <main class="py-5">
+        <div class="container-lg">
+            <div class="row gap-4">
+                <div class="col-lg-8">
+                    <div class="page-card mb-4">
+                        <div class="page-header mb-4">
+                            <div>
+                                <h1 class="page-title">Create New Post</h1>
+                                <p class="text-muted">Share your ideas with the world. Fill in the details below to create your post.</p>
+                            </div>
+                        </div>
+
+                        <form class="create-post-form">
+                            <div class="mb-4">
+                                <label class="field-label" for="postTitle">Title <span class="text-danger">*</span></label>
+                                <input type="text" id="postTitle" class="form-control" placeholder="Enter an engaging title for your post..." maxlength="120" required>
+                                <div class="form-help text-end text-muted">0 / 120</div>
+                            </div>
+
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <label class="field-label" for="postCategory">Category <span class="text-danger">*</span></label>
+                                    <select id="postCategory" class="form-select" required>
+                                        <option value="" disabled selected>Select a category</option>
+                                        {% for name in categories.keys() %}
+                                        <option value="{{ name }}">{{ name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="field-label">Featured Image</label>
+                                    <div class="image-dropzone" id="imageDropzone">
+                                        <div class="dropzone-content">
+                                            <i class="fas fa-image fa-2x mb-3 text-muted"></i>
+                                            <p class="mb-1 fw-semibold">Drag and drop an image here, or click to browse</p>
+                                            <p class="text-muted small">Recommended size: 1200 x 630px (JPG, PNG, WebP)</p>
+                                        </div>
+                                        <input type="file" id="featuredImageInput" accept="image/*">
+                                    </div>
+                                    <div class="image-preview mt-3 d-none" id="imagePreviewContainer">
+                                        <img id="imagePreview" src="#" alt="Preview" class="img-fluid rounded-3">
+                                        <button type="button" class="btn btn-link text-danger mt-2 p-0 remove-image-btn">Remove image</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="field-label" for="postExcerpt">Excerpt</label>
+                                <textarea id="postExcerpt" class="form-control" rows="3" placeholder="Enter a brief summary of your post..."></textarea>
+                                <div class="form-help text-end text-muted">0 / 200</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="field-label" for="postContent">Content <span class="text-danger">*</span></label>
+                                <div class="editor-toolbar mb-2">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"><i class="fas fa-bold"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"><i class="fas fa-italic"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"><i class="fas fa-underline"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"><i class="fas fa-list-ul"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"><i class="fas fa-list-ol"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"><i class="fas fa-link"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"><i class="fas fa-code"></i></button>
+                                </div>
+                                <textarea id="postContent" class="form-control content-editor" rows="10" placeholder="Write your post content here..." required></textarea>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="field-label" for="tagInput">Tags</label>
+                                <div class="tags-input-wrapper">
+                                    <div id="tagsList" class="tags-list"></div>
+                                    <input type="text" id="tagInput" class="form-control" placeholder="Type a tag and press Enter...">
+                                </div>
+                                <div class="text-muted small mt-2">Add relevant tags to help readers find your post.</div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center gap-2 flex-wrap">
+                                <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-light">Save as Draft</button>
+                                    <button type="submit" class="btn btn-success">Publish Post</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <aside class="col-lg-4">
+                    <div class="sidebar-card mb-4">
+                        <h3 class="sidebar-title mb-4">Post Tips</h3>
+                        <ul class="tips-list list-unstyled mb-0">
+                            <li class="tip-item mb-3">
+                                <div class="tip-icon bg-success-light text-success"><i class="fas fa-check"></i></div>
+                                <div>
+                                    <h6 class="mb-1">Write a catchy title</h6>
+                                    <p class="text-muted small mb-0">Your title is the first thing people see. Make it count!</p>
+                                </div>
+                            </li>
+                            <li class="tip-item mb-3">
+                                <div class="tip-icon bg-success-light text-success"><i class="fas fa-image"></i></div>
+                                <div>
+                                    <h6 class="mb-1">Add a featured image</h6>
+                                    <p class="text-muted small mb-0">Images make your post more engaging and shareable.</p>
+                                </div>
+                            </li>
+                            <li class="tip-item mb-3">
+                                <div class="tip-icon bg-success-light text-success"><i class="fas fa-heading"></i></div>
+                                <div>
+                                    <h6 class="mb-1">Use headings</h6>
+                                    <p class="text-muted small mb-0">Break your content into sections for better readability.</p>
+                                </div>
+                            </li>
+                            <li class="tip-item">
+                                <div class="tip-icon bg-success-light text-success"><i class="fas fa-feather-alt"></i></div>
+                                <div>
+                                    <h6 class="mb-1">Keep it simple</h6>
+                                    <p class="text-muted small mb-0">Write clearly and concisely for your readers.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-card mb-4">
+                        <h3 class="sidebar-title mb-3">Categories</h3>
+                        <div class="categories-list">
+                            {% for name, count in categories.items() %}
+                            <div class="category-item">
+                                <span>{{ name }}</span>
+                                <span class="badge bg-light text-dark">{{ count }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card save-draft-card">
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="save-icon bg-success-light text-success mt-1"><i class="fas fa-save"></i></div>
+                            <div>
+                                <h3 class="sidebar-title mb-2">Save as Draft</h3>
+                                <p class="text-muted small mb-3">Not ready to publish? Save your post as a draft and continue editing later.</p>
+                                <button type="button" class="btn btn-outline-success btn-sm">Save Draft</button>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white py-5 mt-5">
+        <div class="container-lg">
+            <div class="row mb-5">
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="mb-3"><span class="logo-icon-white">⬜</span> QuickBlog</h5>
+                    <p class="text-muted small">Write. Publish. Inspire.</p>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h6 class="mb-3">Links</h6>
+                    <ul class="list-unstyled text-muted small">
+                        <li class="mb-2"><a href="{{ url_for('index') }}" class="text-reset text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="#about" class="text-reset text-decoration-none">About</a></li>
+                        <li><a href="#contact" class="text-reset text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h6 class="mb-3">Resources</h6>
+                    <ul class="list-unstyled text-muted small">
+                        <li class="mb-2"><a href="#" class="text-reset text-decoration-none">All Posts</a></li>
+                        <li class="mb-2"><a href="#" class="text-reset text-decoration-none">Categories</a></li>
+                        <li><a href="#" class="text-reset text-decoration-none">Tags</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6 class="mb-3">Follow Us</h6>
+                    <div class="social-links d-flex gap-3">
+                        <a href="#" class="text-muted text-decoration-none" title="Twitter"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-muted text-decoration-none" title="GitHub"><i class="fab fa-github fa-lg"></i></a>
+                        <a href="#" class="text-muted text-decoration-none" title="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="bg-secondary mb-4">
+            <div class="text-center text-muted small">
+                <p>&copy; 2024 QuickBlog. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

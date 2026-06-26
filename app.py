@@ -65,6 +65,11 @@ def index():
                          categories=categories,
                          popular_posts=popular_posts)
 
+@app.route('/create-post')
+def create_post():
+    """Render the create new post page"""
+    return render_template('create_post.html', categories=categories)
+
 @app.route('/post/<int:post_id>')
 def view_post(post_id):
     """View a specific blog post"""

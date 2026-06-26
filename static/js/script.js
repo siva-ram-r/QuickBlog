@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
     initializeScrollEffects();
     initializeNewsletterForm();
+    initializeCreatePostFeatures();
 });
 
 // ===================================
@@ -152,18 +153,124 @@ function initializeNewsletterForm() {
 }
 
 // ===================================
+// Create Post Page Functionality
+// ===================================
+
+function initializeCreatePostFeatures() {
+    const titleInput = document.getElementById('postTitle');
+    const excerptInput = document.getElementById('postExcerpt');
+    const titleCounter = titleInput ? titleInput.closest('.mb-4').querySelector('.form-help') : null;
+    const excerptCounter = excerptInput ? excerptInput.closest('.mb-4').querySelector('.form-help') : null;
+    const featuredImageInput = document.getElementById('featuredImageInput');
+    const imageDropzone = document.getElementById('imageDropzone');
+    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+    const imagePreview = document.getElementById('imagePreview');
+    const removeImageBtn = document.querySelector('.remove-image-btn');
+    const tagInput = document.getElementById('tagInput');
+    const tagsList = document.getElementById('tagsList');
+
+    const tags = [];
+
+    function updateCounter(input, counter, limit) {
+        if (!input || !counter) return;
+        counter.textContent = `${input.value.length} / ${limit}`;
+    }
+
+    function addTag(value) {
+        const trimmed = value.trim();
+        if (!trimmed || tags.includes(trimmed.toLowerCase())) return;
+        tags.push(trimmed.toLowerCase());
+
+        const pill = document.createElement('span');
+        pill.className = 'tag-pill';
+        pill.innerHTML = `${trimmed} <button type="button" class="remove-tag" aria-label="Remove tag">×</button>`;
+
+        pill.querySelector('.remove-tag').addEventListener('click', function() {
+            tagsList.removeChild(pill);
+            const index = tags.indexOf(trimmed.toLowerCase());
+            if (index !== -1) tags.splice(index, 1);
+        });
+
+        tagsList.appendChild(pill);
+    }
+
+    if (titleInput) {
+        updateCounter(titleInput, titleCounter, 120);
+        titleInput.addEventListener('input', () => updateCounter(titleInput, titleCounter, 120));
+    }
+
+    if (excerptInput) {
+        updateCounter(excerptInput, excerptCounter, 200);
+        excerptInput.addEventListener('input', () => updateCounter(excerptInput, excerptCounter, 200));
+    }
+
+    if (featuredImageInput) {
+        featuredImageInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreviewContainer.classList.remove('d-none');
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    if (imageDropzone) {
+        imageDropzone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            imageDropzone.classList.add('dragover');
+        });
+
+        imageDropzone.addEventListener('dragleave', function() {
+            imageDropzone.classList.remove('dragover');
+        });
+
+        imageDropzone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            imageDropzone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files && files.length) {
+                featuredImageInput.files = files;
+                featuredImageInput.dispatchEvent(new Event('change'));
+            }
+        });
+    }
+
+    if (removeImageBtn) {
+        removeImageBtn.addEventListener('click', function() {
+            featuredImageInput.value = '';
+            imagePreviewContainer.classList.add('d-none');
+            imagePreview.src = '#';
+        });
+    }
+
+    if (tagInput) {
+        tagInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addTag(this.value);
+                this.value = '';
+            }
+        });
+    }
+}
+
+// ===================================
 // Share Button Functionality
 // ===================================
 
-document.addEventListener('DOMContentLoaded', function() {
+function initializeShareButtons() {
     const shareButtons = document.querySelectorAll('.share-btn');
-    const pageTitle = document.querySelector('.article-title').textContent;
+    const articleTitleElement = document.querySelector('.article-title');
+    const pageTitle = articleTitleElement ? articleTitleElement.textContent : document.title;
     const pageUrl = window.location.href;
-    
+
     shareButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             if (this.classList.contains('twitter')) {
                 window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(pageTitle)}&url=${encodeURIComponent(pageUrl)}`, '_blank');
             } else if (this.classList.contains('facebook')) {
@@ -179,7 +286,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
+}
+
+// Initialize share buttons if present
+initializeShareButtons();
 
 // ===================================
 // Utility Functions
